@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Absensi SMAN 6</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #1b1c2e, #2d2c49);
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background: #26263a;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #00000055;
+      width: 100%;
+      max-width: 500px;
+      backdrop-filter: blur(5px);
+    }
+    h2 {
+      text-align: center;
+      color: #c7b8ff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 5px #c7b8ff66;
+    }
+    label {
+      margin-top: 10px;
+      display: block;
+      color: #ccc;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+    input, select {
+      background: #3b3b55;
+      color: #fff;
+    }
+    textarea {
+      background: #2c2c44;
+      color: #eee;
+      height: 150px;
+      resize: none;
+    }
+    button {
+      background: linear-gradient(45deg, #ae81ff, #7fafff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 15px #ae81ff55;
+    }
+    button:hover {
+      background: linear-gradient(45deg, #d4c1ff, #add8ff);
+      box-shadow: 0 0 25px #ffffff66;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Absensi Siswa SMAN 6</h2>
+    <label>Nama:</label>
+    <input type="text" id="nama" placeholder="Masukkan nama siswa" />
+
+    <label>Kelas:</label>
+    <input type="text" id="kelas" placeholder="Contoh: XI IPA 2" />
+
+    <label>Tanggal:</label>
+    <input type="date" id="tanggal" />
+
+    <label>Keterangan:</label>
+    <select id="keterangan">
+      <option value="Hadir">Hadir</option>
+      <option value="Sakit">Sakit</option>
+      <option value="Izin">Izin</option>
+      <option value="Alpha">Alpha</option>
+    </select>
+
+    <button onclick="simpanAbsensi()">Simpan</button>
+    <button onclick="downloadData()">Download TXT</button>
+
+    <label>Hasil Absensi:</label>
+    <textarea id="output" readonly placeholder="Hasil absensi akan tampil di sini..."></textarea>
+  </div>
+
+  <script>
+    function simpanAbsensi() {
+      const nama = document.getElementById("nama").value;
+      const kelas = document.getElementById("kelas").value;
+      const tanggal = document.getElementById("tanggal").value;
+      const keterangan = document.getElementById("keterangan").value;
+      const output = document.getElementById("output");
+
+      if (!nama || !kelas || !tanggal) {
+        alert("Isi semua data dulu dong 😅");
+        return;
+      }
+
+      const hasil = `Nama: ${nama}\nKelas: ${kelas}\nTanggal: ${tanggal}\nKeterangan: ${keterangan}\n───────────────────────────\n`;
+      output.value += hasil;
+
+      document.getElementById("nama").value = "";
+      document.getElementById("kelas").value = "";
+      document.getElementById("tanggal").value = "";
+      document.getElementById("keterangan").value = "Hadir";
+    }
+
+    function downloadData() {
+      const text = document.getElementById("output").value;
+      if (!text) {
+        alert("Belum ada data buat di-download.");
+        return;
+      }
+
+      const blob = new Blob([text], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "absensi_siswa.txt";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
