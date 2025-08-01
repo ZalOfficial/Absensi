@@ -74,7 +74,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>Absensi Siswa SMAN 6</h2>
+    <h2>Absensi Siswa SMAN 6 Seluma</h2>
     <label>Nama:</label>
     <input type="text" id="nama" placeholder="Masukkan nama siswa" />
 
@@ -93,7 +93,7 @@
     </select>
 
     <button onclick="simpanAbsensi()">Simpan</button>
-    <button onclick="downloadData()">Download TXT</button>
+    <button onclick="downloadData()">Download Hasil</button>
 
     <label>Hasil Absensi:</label>
     <textarea id="output" readonly placeholder="Hasil absensi akan tampil di sini..."></textarea>
@@ -108,7 +108,7 @@
       const output = document.getElementById("output");
 
       if (!nama || !kelas || !tanggal) {
-        alert("Isi semua data dulu dong 😅");
+        alert("Isi semua data dulu🤗");
         return;
       }
 
